@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-site-verification" content="4l9NmgnQeBFR-PK1VZE4G8aKsW0qcKK6dM74O6a3QV0" />
+  <title>American Express (Amex) PDF to Excel CSV — 100% Local Bank Converter | LedgerLocal</title>
+  <meta name="description" content="Convert American Express PDF statements and receipts into Excel CSV, QuickBooks (.QBO/.IIF), and Xero (.OFX) 100% locally in browser RAM. Replaces DocuClipper ($39/mo)." />
+  <link rel="canonical" href="https://verdyaa.github.io/ledger-local/amex-statement-pdf-to-excel/" />
+  <meta property="og:title" content="American Express (Amex) PDF to Excel CSV — 100% Local Bank Converter | LedgerLocal" />
+  <meta property="og:description" content="Convert American Express PDF statements and receipts into Excel CSV, QuickBooks (.QBO/.IIF), and Xero (.OFX) 100% locally in browser RAM. Replaces DocuClipper ($39/mo)." />
+  <meta property="og:url" content="https://verdyaa.github.io/ledger-local/amex-statement-pdf-to-excel/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="American Express (Amex) PDF to Excel CSV — 100% Local Bank Converter | LedgerLocal" />
+  <meta name="twitter:description" content="Convert American Express PDF statements and receipts into Excel CSV, QuickBooks (.QBO/.IIF), and Xero (.OFX) 100% locally in browser RAM. Replaces DocuClipper ($39/mo)." />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FinancialProduct","name":"American Express (Amex) PDF to Excel CSV","description":"Convert American Express PDF statements and receipts into Excel CSV, QuickBooks (.QBO/.IIF), and Xero (.OFX) 100% locally in browser RAM. Replaces DocuClipper ($39/mo).","url":"https://verdyaa.github.io/ledger-local/amex-statement-pdf-to-excel/"}</script>
+  <link rel="stylesheet" href="/ledger-local/assets/ledger.css" />
+</head>
+<body>
+  <div class="bento-container">
+    <header class="bento-topbar">
+      <a href="/ledger-local/" class="brand-wrap">
+        <div class="brand-mark">$</div>
+        <div>
+          <span class="brand-name">LedgerLocal</span>
+          <span class="brand-tag"><span id="top-status-indicator" class="status-led free"></span>SWISS VAULT RAM // REV 2026.4</span>
+        </div>
+      </a>
+
+      <nav class="topbar-nav">
+        <a href="/ledger-local/chase-bank-statement-pdf-to-csv/" class="nav-chip">Chase PDF→CSV</a>
+        <a href="/ledger-local/bank-of-america-pdf-to-csv/" class="nav-chip">BofA</a>
+        <a href="/ledger-local/amex-statement-pdf-to-excel/" class="nav-chip">Amex</a>
+        <a href="/ledger-local/mercury-bank-pdf-to-qbo/" class="nav-chip">Mercury QBO</a>
+        <a href="/ledger-local/receipt-image-ocr-to-csv/" class="nav-chip">Receipt OCR</a>
+        <button type="button" id="nav-pro-btn" class="btn btn-accent">Unlock Pro — $9/mo</button>
+      </nav>
+    </header>
+
+    <main class="bento-grid">
+      <section class="bento-cell cell-workbench">
+        <div class="workbench-header">
+          <div class="eyebrow">
+            <span><span class="status-led pro"></span>INSTITUTION PROFILE: <span id="active-tool-institution">American Express</span></span>
+            <span class="badge-pill">ZERO CLOUD // 100% CLIENT RAM</span>
+          </div>
+          <h1 id="tool-page-h1">American Express (Amex) PDF to Excel CSV</h1>
+          <p id="tool-page-desc">Convert American Express PDF statements and receipts into Excel CSV, QuickBooks (.QBO/.IIF), and Xero (.OFX) 100% locally in browser RAM. Replaces DocuClipper ($39/mo).</p>
+        </div>
+
+        <div class="toolbar-strip">
+          <input type="file" id="stmt-file-input" accept=".pdf,.csv,.tsv,.txt,.ofx,.qfx,.qbo,image/*" multiple class="btn" title="Upload Bank Statement PDF, Receipt Image, or CSV" />
+          <button type="button" id="paste-stmt-btn" class="btn">Paste Statement (Ctrl+V)</button>
+          <button type="button" id="sample-chase-btn" class="btn">Chase Sample</button>
+          <button type="button" id="sample-amex-btn" class="btn">Amex / Stripe</button>
+          <button type="button" id="sample-receipt-btn" class="btn">Receipt OCR</button>
+          <button type="button" id="mask-pii-btn" class="btn">Mask Account #</button>
+          <button type="button" id="add-row-btn" class="btn">+ Row</button>
+        </div>
+
+        <div id="stmt-drop-hint" class="drop-paste-hint">
+          DRAG &amp; DROP BANK STATEMENT PDF OR RECEIPT IMAGE HERE • OR PRESS CTRL+V TO PASTE TRANSACTIONS
+        </div>
+
+        <div id="receipt-ocr-stage" style="display:none;flex-direction:column;align-items:center;background:var(--bg-sunken);padding:10px;border-radius:8px;border:1px solid var(--border-subtle)">
+          <canvas id="receipt-ocr-canvas" width="620" height="110" style="max-width:100%;height:auto;border-radius:6px"></canvas>
+        </div>
+
+        <div class="kpi-strip">
+          <div class="kpi-box">
+            <div class="kpi-label">Reconciled Rows</div>
+            <div class="kpi-val" id="kpi-count">8 rows</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-label">Total Deposits (+)</div>
+            <div class="kpi-val pos" id="kpi-credits">+$6,229.00</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-label">Total Withdrawals (-)</div>
+            <div class="kpi-val neg" id="kpi-debits">-$5,083.65</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-label">Net Cashflow</div>
+            <div class="kpi-val pos" id="kpi-net">+$1,145.35</div>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="ledger-table">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Merchant / Description (Editable)</th>
+                <th scope="col">IRS Schedule C Category</th>
+                <th scope="col">Debit (-)</th>
+                <th scope="col">Credit (+)</th>
+                <th scope="col">Balance</th>
+              </tr>
+            </thead>
+            <tbody id="ledger-tbody"></tbody>
+          </table>
+        </div>
+
+        <div class="toolbar-strip" style="justify-content:space-between">
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <button type="button" id="export-csv-btn" class="btn btn-accent">Export Excel (.CSV)</button>
+            <button type="button" id="export-qbo-btn" class="btn btn-primary">Export QuickBooks (.QBO)</button>
+            <button type="button" id="export-ofx-btn" class="btn">Export Xero (.OFX)</button>
+            <button type="button" id="export-iif-btn" class="btn">QuickBooks Desktop (.IIF)</button>
+            <button type="button" id="export-json-btn" class="btn">Export .JSON</button>
+          </div>
+          <button type="button" id="parse-raw-btn" class="btn">Re-Parse Raw Text ↓</button>
+        </div>
+
+        <textarea id="raw-statement-input" class="raw-drawer" rows="4" placeholder="Paste raw PDF bank statement lines, CSV rows, or OCR text here and click 'Re-Parse Raw Text'..."></textarea>
+      </section>
+
+      <aside class="bento-cell cell-monetize">
+        <div>
+          <div class="eyebrow">
+            <span>Bookkeeper &amp; CPA Pass</span>
+            <span class="badge-pill" id="tier-badge">FREE TIER (2/2 LEFT)</span>
+          </div>
+          <h2 style="font-size:1.15rem;margin-top:8px">Unlimited Statements &amp; Batch QBO</h2>
+          <p style="font-size:0.82rem;color:var(--text-secondary);margin-top:4px">
+            Stop paying $39/mo to upload private bank statements to cloud servers. Process unlimited statements 100% locally in RAM.
+          </p>
+        </div>
+
+        <div class="quota-meter">
+          <div class="quota-top">
+            <span id="quota-text">2 of 2 free statement exports left today</span>
+          </div>
+          <div class="quota-track">
+            <div class="quota-fill" id="quota-fill" style="width:0%"></div>
+          </div>
+        </div>
+
+        <ul class="feature-list">
+          <li>✓ Unlimited PDF, CSV, QBO, OFX &amp; IIF exports</li>
+          <li>✓ Merge 12 monthly statements in 1 batch drop</li>
+          <li>✓ Automatic IRS Schedule C tax categorization</li>
+          <li>✓ 100% air-gapped in browser RAM (Zero Cloud)</li>
+        </ul>
+
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <button type="button" id="open-pro-btn" class="btn btn-accent" style="width:100%">
+            Unlock LedgerLocal Pro — $9/mo or $29 once
+          </button>
+          <button type="button" id="deactivate-license-btn" class="btn btn-outline-danger" style="width:100%;display:none">
+            Reset to Free Tier (Test Lock)
+          </button>
+        </div>
+      </aside>
+
+      <aside class="bento-cell cell-partner">
+        <div>
+          <div class="eyebrow">
+            <span>SaaS Cost Comparison</span>
+            <span class="badge-pill">SAVE $468/YR</span>
+          </div>
+          <h2 style="font-size:1.05rem;margin-top:8px">
+            Replaces <span id="active-tool-benchmark">DocuClipper ($39/mo)</span>
+          </h2>
+          <p style="font-size:0.82rem;color:var(--text-secondary);margin-top:6px">
+            Cloud converters store your bank account numbers and charge monthly per-page credits. LedgerLocal runs inside your browser with zero server uploads.
+          </p>
+        </div>
+
+        <a
+          href="https://verdyaa.github.io/omni-tools-ai/"
+          target="_blank"
+          rel="noopener"
+          class="btn"
+          style="width:100%;justify-content:space-between"
+        >
+          <span>Explore Our 84-Tool OmniTools Suite</span>
+          <span>↗</span>
+        </a>
+      </aside>
+
+      <section class="bento-cell cell-directory">
+        <div class="directory-controls">
+          <div>
+            <div class="eyebrow">
+              <span>Supported Institutions &amp; Formats</span>
+              <span class="badge-pill" id="catalog-count">60 converters</span>
+            </div>
+            <h2 style="font-size:1.25rem;margin-top:4px">All 60 Local Bank &amp; Accounting Converters</h2>
+          </div>
+
+          <input
+            type="search"
+            id="tool-search"
+            class="search-input"
+            placeholder="Search bank or format (Chase, Amex, QBO, Wise, IIF)..."
+          />
+        </div>
+
+        <div class="category-pills" id="category-tabs">
+          <button type="button" class="cat-btn active" data-cat="all">All (60)</button>
+          <button type="button" class="cat-btn" data-cat="us-banks">US Banks (20)</button>
+          <button type="button" class="cat-btn" data-cat="fintech-cards">Fintech &amp; Cards (14)</button>
+          <button type="button" class="cat-btn" data-cat="global-banks">UK / Canada / Global (10)</button>
+          <button type="button" class="cat-btn" data-cat="accounting-feeds">QuickBooks / Xero (8)</button>
+          <button type="button" class="cat-btn" data-cat="tax-receipts">Tax &amp; Receipt OCR (8)</button>
+        </div>
+
+        <div id="tools-directory" class="bento-mosaic"></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="pro-dialog" closedby="any" aria-labelledby="pro-dialog-title">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h2 id="pro-dialog-title" style="font-size:1.2rem">Unlock LedgerLocal Pro</h2>
+      <form method="dialog"><button type="submit" class="btn" style="padding:4px 10px">Esc</button></form>
+    </div>
+
+    <div id="pro-dialog-reason" class="dialog-alert-banner" style="display:none"></div>
+
+    <p style="font-size:0.84rem;color:var(--text-secondary);margin-top:8px">
+      Unlock unlimited daily bank statement conversions, 12-month batch PDF merging, and unlimited QuickBooks (.QBO / .IIF) &amp; Excel exports.
+    </p>
+
+    <div class="pricing-cards">
+      <div class="price-box">
+        <span class="eyebrow">Monthly Pass</span>
+        <div class="price-amount">$9 <span style="font-size:0.8rem;font-weight:400;color:var(--text-muted)">/mo</span></div>
+        <p style="font-size:0.75rem;color:var(--text-secondary)">Cancel anytime. Instant Gumroad license key.</p>
+        <a href="https://wedworks.gumroad.com/l/etvreq" target="_blank" rel="noopener" class="btn" style="margin-top:auto">Get Monthly ($9/mo)</a>
+      </div>
+
+      <div class="price-box featured">
+        <span class="eyebrow" style="color:var(--accent)">Lifetime Pass</span>
+        <div class="price-amount">$29 <span style="font-size:0.8rem;font-weight:400;color:var(--text-muted)">once</span></div>
+        <p style="font-size:0.75rem;color:var(--text-secondary)">Pay once, convert unlimited bank statements forever.</p>
+        <a href="https://wedworks.gumroad.com/l/xlqmp" target="_blank" rel="noopener" class="btn btn-accent" style="margin-top:auto">Get Lifetime ($29)</a>
+      </div>
+    </div>
+
+    <div style="border-top:1px solid var(--border-subtle);padding-top:14px;margin-top:10px">
+      <label for="license-input" style="font-size:0.76rem;color:var(--text-secondary);display:block;margin-bottom:4px">
+        Enter your Gumroad license key (works across both OmniTools &amp; LedgerLocal):
+      </label>
+      <div class="license-row">
+        <input type="text" id="license-input" placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX" />
+        <button type="button" id="activate-license-btn" class="btn btn-primary">Verify &amp; Unlock</button>
+      </div>
+      <div id="license-status" style="font-size:0.75rem;margin-top:8px;font-family:'JetBrains Mono',monospace"></div>
+      <div style="margin-top:12px;display:flex;justify-content:flex-end">
+        <button type="button" id="dialog-deactivate-btn" class="btn btn-outline-danger" style="font-size:0.7rem;padding:4px 10px">
+          Reset / Return to Free Tier
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <script>window.__INITIAL_TOOL_SLUG__ = "amex-statement-pdf-to-excel";</script>
+  <script type="module" src="/ledger-local/assets/ledger.js"></script>
+</body>
+</html>
